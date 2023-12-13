@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import AddEntryForm from './components/AddEntryForm';
+import EntryList from './components/EntryList';
+import { getEntriesFromSheet } from './services/sheetService';
+import { Entry } from './types/types';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [entries, setEntries] = useState<Entry[]>([]);
+
+    const fetchEntries = async () => {
+        const data = await getEntriesFromSheet();
+        setEntries(data);
+    };
+
+    useEffect(() => {
+        fetchEntries();
+    }, []);
+
+    return (
+        <div>
+            <h1>家計簿アプリ</h1>
+            <AddEntryForm onEntryAdded={fetchEntries} />
+            <EntryList entries={entries} />
+        </div>
+    );
+};
 
 export default App;
+
