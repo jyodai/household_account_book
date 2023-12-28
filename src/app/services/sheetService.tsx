@@ -1,15 +1,64 @@
-"use server";
+"use client";
 
 import { Entry } from '../types/types';
 
 export const getEntriesFromSheet = async (): Promise<Entry[]> => {
-    return [];
+    const accessToken = await getAccessToken();
+
+    const response = await fetch(
+        process.env.NEXT_PUBLIC_SCRIPT_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body : JSON.stringify({function: 'getData'})
+        }
+    )
+
+    const data = await response.json();
+    return JSON.parse(data.response.result);
 };
 
+async function getAccessToken() {
+    const payload = new URLSearchParams({
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID as string,
+        client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET as string,
+        refresh_token: process.env.NEXT_PUBLIC_REFRESH_TOKEN as string,
+        grant_type: 'refresh_token'
+    });
+
+    const response = await fetch(
+        process.env.NEXT_PUBLIC_TOKEN_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body : payload.toString(),
+        }
+    )
+
+    const data = await response.json();
+    return data.access_token;
+}
+
 export const addEntryToSheet = async (entry: Entry) => {
-    console.log('addEntryToSheet');
-    console.log(entry);
-    // Google Sheets APIを使って新しいエントリを追加するロジック
-    // POSTリクエストを使用する場合は、CORSの問題に注意
+    const accessToken = await getAccessToken();
+
+    await fetch(
+        process.env.NEXT_PUBLIC_SCRIPT_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body : JSON.stringify({function: 'addData', parameters: entry})
+        }
+    )
 };
+
+
 
