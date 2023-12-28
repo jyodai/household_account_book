@@ -58,6 +58,8 @@ export const addEntryToSheet = async (entry: Entry) => {
             body : JSON.stringify({function: 'addData', parameters: entry})
         }
     )
+
+    alert('登録完了');
 };
 
 
