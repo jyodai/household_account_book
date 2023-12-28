@@ -16,4 +16,4 @@ reset : stop up
 
 build :
 	docker-compose build --no-cache
-	docker-compose run --rm node sh -c 'cd app && npm install'
+	docker-compose run --rm app sh -c 'npm install'

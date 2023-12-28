@@ -1,11 +1,14 @@
 version: '3'
 
 services:
-  node:
-    build: .
+  app:
+    build:
+      context: .
+    tty: true
     volumes:
-      - ./:/usr/src/app
-    command: sh -c 'cd app && npm start'
+      - ./src:/app
+    environment:
+      - WATCHPACK_POLLING=true
+    command: sh -c "npm run dev"
     ports:
-      - '3000:3000'
-
+      - "80:3000"
