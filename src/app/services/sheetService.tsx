@@ -18,7 +18,14 @@ export const getEntriesFromSheet = async (): Promise<Entry[]> => {
     )
 
     const data = await response.json();
-    return JSON.parse(data.response.result);
+    const lists = JSON.parse(data.response.result) as Entry[]
+    const convertLists = lists.map((list: Entry) => {
+        return {
+            ...list,
+            date: new Date(list.date)
+        };
+    });
+    return convertLists;
 };
 
 async function getAccessToken() {

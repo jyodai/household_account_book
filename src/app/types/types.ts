@@ -1,5 +1,5 @@
 export interface Entry {
-    date: string;
+    date: Date;
     category: string;
     amount: string;
     memo: string;

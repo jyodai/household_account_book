@@ -4,7 +4,7 @@ import { addEntryToSheet } from '../services/sheetService';
 const AddEntryForm = ({ onEntryAdded }) => {
     const [entry, setEntry] = useState(
     {
-      date: getCurrentDateTimeForInput(),
+      date : getCurrentDateTimeForInput(),
       category: '',
       amount: '',
       memo: '',
