@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import EntryList from '../components/EntryList';
+import EntryList from './components/EntryList';
 import { getEntriesFromSheet } from '../services/sheetService';
 import { Entry } from '../types/types';
 

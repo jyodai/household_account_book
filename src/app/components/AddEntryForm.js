@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addEntryToSheet } from '../services/sheetService';
+import { addEntryToSheet } from '../../services/sheetService';
 
 const AddEntryForm = () => {
     const [entry, setEntry] = useState(

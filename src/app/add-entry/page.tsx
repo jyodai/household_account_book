@@ -1,5 +1,5 @@
 "use client";
-import AddEntryForm from '../../components/AddEntryForm';
+import AddEntryForm from '../components/AddEntryForm';
 
 export default function Home() {
     return (
