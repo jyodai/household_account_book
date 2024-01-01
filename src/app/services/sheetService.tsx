@@ -22,7 +22,8 @@ export const getEntriesFromSheet = async (): Promise<Entry[]> => {
     const convertLists = lists.map((list: Entry) => {
         return {
             ...list,
-            date: new Date(list.date)
+            id : Number(list.id),
+            date: new Date(list.date),
         };
     });
     return convertLists;

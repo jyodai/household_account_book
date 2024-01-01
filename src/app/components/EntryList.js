@@ -5,7 +5,7 @@ const EntryList = ({ entries }) => {
         <ul>
             {entries.map((entry, index) => (
                 <li key={index}>
-                    {entry.date.toLocaleString()} - {entry.category} - ¥{entry.amount} - {entry.memo}
+                  {entry.id} - {entry.date.toLocaleString()} - {entry.category} - ¥{entry.amount} - {entry.memo}
                 </li>
             ))}
         </ul>
