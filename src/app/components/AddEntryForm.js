@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { addEntryToSheet } from '../../services/sheetService';
-import { currentDateTimeForInput } from '../../utils/date';
+import { addEntryToSheet } from '@/services/sheetService';
+import { currentDateTimeForInput } from '@/utils/date';
 
 const AddEntryForm = () => {
     const [entry, setEntry] = useState(

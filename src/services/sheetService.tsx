@@ -1,6 +1,6 @@
 "use client";
 
-import { Entry } from '../types/types';
+import { Entry } from '@/types/types';
 
 export const getEntriesFromSheet = async (): Promise<Entry[]> => {
     const accessToken = await getAccessToken();
