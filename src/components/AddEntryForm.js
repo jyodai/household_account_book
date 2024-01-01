@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addEntryToSheet } from '../services/sheetService';
 
-const AddEntryForm = ({ onEntryAdded }) => {
+const AddEntryForm = () => {
     const [entry, setEntry] = useState(
     {
       date : getCurrentDateTimeForInput(),
@@ -14,7 +14,6 @@ const AddEntryForm = ({ onEntryAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addEntryToSheet(entry);
-        onEntryAdded();
     };
 
     return (

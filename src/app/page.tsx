@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from 'react';
-import AddEntryForm from '../components/AddEntryForm';
 import EntryList from '../components/EntryList';
 import { getEntriesFromSheet } from '../services/sheetService';
 import { Entry } from '../types/types';
@@ -20,7 +19,6 @@ export default function Home() {
     return (
         <div>
             <h1>家計簿アプリ</h1>
-            <AddEntryForm onEntryAdded={fetchEntries} />
             <EntryList entries={entries} />
         </div>
     );
