@@ -34,17 +34,20 @@ export default function Home() {
     };
 
     return (
-        <div>
-            <h1>家計簿アプリ</h1>
+        <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-bold text-center mb-6">家計簿アプリ</h1>
             {editingEntry ? (
                 <>
                     <AddEntryForm initialEntry={editingEntry} onSave={handleSave} />
-                    <button onClick={() => setEditingEntry(null)}>キャンセル</button>
+                    <button onClick={() => setEditingEntry(null)} className="mt-4 w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        キャンセル
+                    </button>
                 </>
             ) : (
                 <EntryList entries={entries} onDelete={handleDelete} onEdit={handleEdit} />
             )}
         </div>
+
     );
 }
 
