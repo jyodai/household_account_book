@@ -13,17 +13,23 @@ export const getEntriesFromSheet = async (): Promise<Entry[]> => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`,
             },
-            body : JSON.stringify({function: 'getData'})
+            body: JSON.stringify({function: 'getData'})
         }
-    )
+    );
 
     const data = await response.json();
-    const lists = JSON.parse(data.response.result) as Entry[]
+    const lists = JSON.parse(data.response.result) as Entry[];
+    const categories = await getCategoriesFromLocalStorage();
+
     const convertLists = lists.map((list: Entry) => {
+        const category = categories.find(category => category.id === list.category_id);
+
         return {
             ...list,
-            id : Number(list.id),
+            id: Number(list.id),
             date: new Date(list.date),
+            category_id: Number(list.category_id),
+            category,
         };
     });
     return convertLists;
@@ -130,5 +136,17 @@ export const getCategory  = async (): Promise<Category[]> => {
             type : Number(list.type),
         };
     });
+
+    localStorage.setItem('categories', JSON.stringify(convertLists));
+
     return convertLists;
 };
+
+async function getCategoriesFromLocalStorage(): Promise<Category[]> {
+    const categoriesJSON = localStorage.getItem('categories');
+    if (categoriesJSON) {
+        return JSON.parse(categoriesJSON);
+    } else {
+        return await getCategory();
+    }
+}

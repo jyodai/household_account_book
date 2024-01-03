@@ -1,9 +1,10 @@
 export interface Entry {
     id : number;
     date: Date;
-    category: string;
+    category_id: number;
     amount: string;
     memo: string;
+    category?: Category;
 }
 
 export interface Category {

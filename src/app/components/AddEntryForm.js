@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { dateUtils } from '@/utils/date';
 
+function getCategoriesFromLocalStorage() {
+    const categoriesJSON = localStorage.getItem('categories');
+    if (categoriesJSON) {
+        return JSON.parse(categoriesJSON);
+    } else {
+        return [];
+    }
+}
+
 const AddEntryForm = ({ initialEntry, onSave }) => {
+
     const [entry, setEntry] = useState({
         id: initialEntry?.id || null,
         date:  dateUtils.formatDateToDateTimeLocal(new Date()),
-        category: initialEntry?.category || '',
+        category_id: initialEntry?.category_id || 0,
         amount: initialEntry?.amount || '',
         memo: initialEntry?.memo || '',
     });
 
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
+        const categoriesFromStorage = getCategoriesFromLocalStorage();
+        setCategories(categoriesFromStorage);
+
         if (initialEntry) {
             setEntry({
                 id: initialEntry.id,
                 date: dateUtils.formatDateToDateTimeLocal(initialEntry.date),
-                category: initialEntry.category,
+                category_id: initialEntry.category_id,
                 amount: initialEntry.amount,
                 memo: initialEntry.memo,
             });
@@ -47,17 +62,21 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     className={inputClass}
                 />
             </div>
-            
-            <div className="mb-4">
+
+           <div className="mb-4">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">カテゴリ</label>
-                <input
-                    type="text"
+                <select
                     name="category"
-                    value={entry.category}
-                    onChange={(e) => setEntry({ ...entry, category: e.target.value })}
-                    required
+                    value={entry.category_id}
+                    onChange={(e) => setEntry({ ...entry, category_id: Number(e.target.value) })}
                     className={inputClass}
-                />
+                    required
+                >
+                    <option value="">カテゴリを選択</option>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                </select>
             </div>
 
             <div className="mb-4">
@@ -91,4 +110,3 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
 };
 
 export default AddEntryForm;
-
