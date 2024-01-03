@@ -1,6 +1,6 @@
 "use client";
 
-import { Entry } from '@/types/types';
+import { Entry, Category } from '@/types/types';
 
 export const getEntriesFromSheet = async (): Promise<Entry[]> => {
     const accessToken = await getAccessToken();
@@ -106,3 +106,29 @@ export const editEntryInSheet = async (id: number, updatedEntry: Entry) => {
     alert('更新完了');
 };
 
+export const getCategory  = async (): Promise<Category[]> => {
+    const accessToken = await getAccessToken();
+
+    const response = await fetch(
+        process.env.NEXT_PUBLIC_SCRIPT_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body : JSON.stringify({function: 'getCategory'})
+        }
+    )
+
+    const data = await response.json();
+    const lists = JSON.parse(data.response.result) as Category[]
+    const convertLists = lists.map((list: Category) => {
+        return {
+            ...list,
+            id : Number(list.id),
+            type : Number(list.type),
+        };
+    });
+    return convertLists;
+};

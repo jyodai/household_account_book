@@ -5,3 +5,11 @@ export interface Entry {
     amount: string;
     memo: string;
 }
+
+export interface Category {
+    id : number;
+    name: string;
+    type : number;
+    color: string;
+    memo: string;
+}
