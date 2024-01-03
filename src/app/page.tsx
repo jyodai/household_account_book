@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import EntryList from '@/app/components/EntryList';
-import { getEntriesFromSheet } from '@/services/sheetService';
+import { getEntriesFromSheet, deleteEntryFromSheet } from '@/services/sheetService';
 import { Entry } from '@/types/types';
 
 export default function Home() {
@@ -16,10 +16,16 @@ export default function Home() {
         fetchEntries();
     }, []);
 
+    const handleDelete = async (id: number) => {
+        await deleteEntryFromSheet(id);
+        fetchEntries();
+    };
+
     return (
         <div>
             <h1>家計簿アプリ</h1>
-            <EntryList entries={entries} />
+            <EntryList entries={entries} onDelete={handleDelete} />
         </div>
     );
 }
+

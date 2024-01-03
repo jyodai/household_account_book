@@ -70,5 +70,39 @@ export const addEntryToSheet = async (entry: Entry) => {
     alert('登録完了');
 };
 
+export const deleteEntryFromSheet = async (id: number) => {
+    const accessToken = await getAccessToken();
 
+    await fetch(
+        process.env.NEXT_PUBLIC_SCRIPT_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body : JSON.stringify({function: 'deleteData', parameters: [id]})
+        }
+    )
+
+    alert('削除完了');
+};
+
+export const editEntryInSheet = async (id: number, updatedEntry: Entry) => {
+    const accessToken = await getAccessToken();
+
+    await fetch(
+        process.env.NEXT_PUBLIC_SCRIPT_URL as string,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body : JSON.stringify({function: 'editData', parameters: [id, updatedEntry]})
+        }
+    )
+
+    alert('更新完了');
+};
 
