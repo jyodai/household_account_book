@@ -79,7 +79,6 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     name="memo"
                     value={entry.memo}
                     onChange={(e) => setEntry({ ...entry, memo: e.target.value })}
-                    required
                     className={inputClass}
                 />
             </div>
