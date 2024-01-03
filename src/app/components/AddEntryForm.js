@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { formatDateToDateTimeLocal } from '@/utils/date';
+import { dateUtils } from '@/utils/date';
 
 const AddEntryForm = ({ initialEntry, onSave }) => {
     const [entry, setEntry] = useState({
         id: initialEntry?.id || null,
-        date:  formatDateToDateTimeLocal(new Date()),
+        date:  dateUtils.formatDateToDateTimeLocal(new Date()),
         category: initialEntry?.category || '',
         amount: initialEntry?.amount || '',
         memo: initialEntry?.memo || '',
@@ -14,7 +14,7 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
         if (initialEntry) {
             setEntry({
                 id: initialEntry.id,
-                date: formatDateToDateTimeLocal(initialEntry.date),
+                date: dateUtils.formatDateToDateTimeLocal(initialEntry.date),
                 category: initialEntry.category,
                 amount: initialEntry.amount,
                 memo: initialEntry.memo,
