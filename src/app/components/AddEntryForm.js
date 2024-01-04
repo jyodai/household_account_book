@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { dateUtils } from '@/utils/date';
+import { Constants } from '@/constants';
 
 function getCategoriesFromLocalStorage() {
     const categoriesJSON = localStorage.getItem('categories');
@@ -15,6 +16,8 @@ function getCategoriesFromLocalStorage() {
 const AddEntryForm = ({ initialEntry, onSave }) => {
     const categoriesFromStorage = getCategoriesFromLocalStorage();
     const [categories, setCategories] = useState(categoriesFromStorage);
+
+    const [categoryType, setCategoryType] = useState(initialEntry?.category.type || Constants.CATEGORY_TYPE_EXPENSE);
 
     const [entry, setEntry] = useState({
         id: initialEntry?.id || null,
@@ -63,7 +66,21 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                 />
             </div>
 
-           <div className="mb-4">
+            <div className="mb-4">
+                <label htmlFor="categoryType" className="block text-sm font-medium text-gray-700">カテゴリータイプ</label>
+                <select
+                    name="categoryType"
+                    value={categoryType}
+                    onChange={(e) => setCategoryType(Number(e.target.value))}
+                    className={inputClass}
+                    required
+                >
+                    <option value={Constants.CATEGORY_TYPE_EXPENSE}>支出</option>
+                    <option value={Constants.CATEGORY_TYPE_INCOME}>収入</option>
+                </select>
+            </div>
+
+            <div className="mb-4">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">カテゴリ</label>
                 <select
                     name="category"
@@ -72,10 +89,8 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     className={inputClass}
                     required
                 >
-                    {categories.map((category) => (
-                        category.type === 1 && (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        )
+                    {categoriesFromStorage.filter(cat => cat.type === categoryType).map((category) => (
+                        <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                 </select>
             </div>
