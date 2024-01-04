@@ -26,6 +26,7 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
         amount: initialEntry?.amount || '',
         store: initialEntry?.store || '',
         memo: initialEntry?.memo || '',
+        claim_flag: initialEntry?.claim_flag || 0,
     });
 
     useEffect(() => {
@@ -37,10 +38,15 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                 amount: initialEntry.amount,
                 store: initialEntry.store,
                 memo: initialEntry.memo,
+                claim_flag: initialEntry.claim_flag,
             });
         }
 
     }, [initialEntry]);
+
+    const handleClaimFlagChange = (e) => {
+      setEntry({ ...entry, claim_flag: e.target.checked ? 1 : 0 });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -128,6 +134,18 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     value={entry.memo}
                     onChange={(e) => setEntry({ ...entry, memo: e.target.value })}
                     className={inputClass}
+                />
+            </div>
+
+            <div className="mb-4">
+                <label htmlFor="claimFlag" className="block text-sm font-medium text-gray-700">請求する</label>
+                <input
+                    type="checkbox"
+                    name="claimFlag"
+                    id="claimFlag"
+                    checked={entry.claim_flag === 1}
+                    onChange={handleClaimFlagChange}
+                    className="mt-1"
                 />
             </div>
 

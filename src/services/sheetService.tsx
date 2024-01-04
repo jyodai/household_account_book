@@ -28,6 +28,7 @@ export const getEntriesFromSheet = async (): Promise<Entry[]> => {
             ...list,
             id: Number(list.id),
             date: new Date(list.date),
+            claim_flag: Number(list.claim_flag),
             category_id: Number(list.category_id),
             category,
         };
