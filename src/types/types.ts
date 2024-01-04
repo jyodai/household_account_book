@@ -3,6 +3,7 @@ export interface Entry {
     date: Date;
     category_id: number;
     amount: string;
+    store: string;
     memo: string;
     category?: Category;
 }

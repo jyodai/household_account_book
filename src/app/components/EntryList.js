@@ -10,6 +10,7 @@ const EntryList = ({ entries, onDelete, onEdit }) => {
                         <div className="text-sm text-gray-600">{dateUtils.formatDateToDateTimeLocal(entry.date)}</div>
                         <div className="text-lg font-medium">{entry.category.name}</div>
                         <div className="text-gray-800">{entry.amount} 円</div>
+                        <div className="text-gray-500 italic">{entry.store}</div>
                         <div className="text-gray-500 italic">{entry.memo}</div>
                     </div>
                     <div className="flex items-center space-x-2">

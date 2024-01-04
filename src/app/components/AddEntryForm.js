@@ -24,6 +24,7 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
         date:  dateUtils.formatDateToDateTimeLocal(new Date()),
         category_id: initialEntry?.category_id || categories.length === 0 ? 0 : categories[0].id,
         amount: initialEntry?.amount || '',
+        store: initialEntry?.store || '',
         memo: initialEntry?.memo || '',
     });
 
@@ -34,6 +35,7 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                 date: dateUtils.formatDateToDateTimeLocal(initialEntry.date),
                 category_id: initialEntry.category_id,
                 amount: initialEntry.amount,
+                store: initialEntry.store,
                 memo: initialEntry.memo,
             });
         }
@@ -103,6 +105,17 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     value={entry.amount}
                     onChange={(e) => setEntry({ ...entry, amount: e.target.value })}
                     required
+                    className={inputClass}
+                />
+            </div>
+
+            <div className="mb-4">
+                <label htmlFor="store" className="block text-sm font-medium text-gray-700">店</label>
+                <input
+                    type="text"
+                    name="store"
+                    value={entry.store}
+                    onChange={(e) => setEntry({ ...entry, store: e.target.value })}
                     className={inputClass}
                 />
             </div>
