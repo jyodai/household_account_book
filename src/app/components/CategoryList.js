@@ -11,6 +11,7 @@ const CategoryList = ({ categories }) => {
                         <div className="text-gray-500 italic">{category.type}</div>
                         <div className="text-gray-500 italic">{category.color}</div>
                         <div className="text-gray-500 italic">{category.memo}</div>
+                        <div className="text-gray-500 italic">{category.sort}</div>
                     </div>
                 </li>
             ))}

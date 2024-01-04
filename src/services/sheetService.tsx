@@ -135,6 +135,7 @@ export const getCategory  = async (): Promise<Category[]> => {
             ...list,
             id : Number(list.id),
             type : Number(list.type),
+            sort: Number(list.sort),
         };
     });
 

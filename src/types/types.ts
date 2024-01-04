@@ -15,4 +15,5 @@ export interface Category {
     type : number;
     color: string;
     memo: string;
+    sort: number;
 }
