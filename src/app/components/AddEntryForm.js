@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { dateUtils } from '@/utils/date';
 
@@ -11,21 +13,18 @@ function getCategoriesFromLocalStorage() {
 }
 
 const AddEntryForm = ({ initialEntry, onSave }) => {
+    const categoriesFromStorage = getCategoriesFromLocalStorage();
+    const [categories, setCategories] = useState(categoriesFromStorage);
 
     const [entry, setEntry] = useState({
         id: initialEntry?.id || null,
         date:  dateUtils.formatDateToDateTimeLocal(new Date()),
-        category_id: initialEntry?.category_id || 0,
+        category_id: initialEntry?.category_id || categories.length === 0 ? 0 : categories[0].id,
         amount: initialEntry?.amount || '',
         memo: initialEntry?.memo || '',
     });
 
-    const [categories, setCategories] = useState([]);
-
     useEffect(() => {
-        const categoriesFromStorage = getCategoriesFromLocalStorage();
-        setCategories(categoriesFromStorage);
-
         if (initialEntry) {
             setEntry({
                 id: initialEntry.id,
@@ -35,6 +34,7 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                 memo: initialEntry.memo,
             });
         }
+
     }, [initialEntry]);
 
     const handleSubmit = async (e) => {
@@ -72,9 +72,10 @@ const AddEntryForm = ({ initialEntry, onSave }) => {
                     className={inputClass}
                     required
                 >
-                    <option value="">カテゴリを選択</option>
                     {categories.map((category) => (
-                        <option key={category.id} value={category.id}>{category.name}</option>
+                        category.type === 1 && (
+                            <option key={category.id} value={category.id}>{category.name}</option>
+                        )
                     ))}
                 </select>
             </div>
